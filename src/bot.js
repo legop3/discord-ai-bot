@@ -18,6 +18,8 @@ const model = process.env.MODEL;
 const servers = process.env.OLLAMA.split(",").map(url => ({ url: new URL(url), available: true }));
 const stableDiffusionServers = process.env.STABLE_DIFFUSION.split(",").map(url => ({ url: new URL(url), available: true }));
 const channels = process.env.CHANNELS.split(",");
+// modification, the variable for botwar mode
+var botwar = false
 
 if (servers.length == 0) {
 	throw new Error("No servers available");
@@ -265,9 +267,14 @@ client.on(Events.MessageCreate, async message => {
 		const channelID = message.channel.id;
 		if (message.guild && !channels.includes(channelID)) return;
 
-		// return if user is a bot, or non-default message
+		// return if user is a bot, or non-default message, unless botwar is enabled.
 		if (!message.author.id) return;
-		if (message.author.bot || message.author.id == client.user.id) return;
+		if (message.author.id == client.user.id) return;
+
+		if (!botwar) {
+		// modification, checks for botwar mode
+			if (message.author.bot) return;
+		}
 
 		const botRole = message.guild?.members?.me?.roles?.botRole;
 		const myMention = new RegExp(`<@((!?${client.user.id}${botRole ? `)|(&${botRole.id}` : ""}))>`, "g"); // RegExp to match a mention for the bot
@@ -348,6 +355,10 @@ client.on(Events.MessageCreate, async message => {
 				case "system":
 					await replySplitMessage(message, `System message:\n\n${systemMessage}`);
 					break;
+				case "botwar":
+					// modification, toggles the botwar mode
+					botwar = !botwar
+					await message.reply({content: `Botwar mode is now ${botwar}`})
 				case "ping":
 					// get ms difference
 					try {
