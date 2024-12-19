@@ -9,7 +9,7 @@ dotenv.config();
 const production = process.env.NODE_ENV == "prod" || process.env.NODE_ENV == "production";
 const log = new Logger(production, "Shard Manager");
 
-log(LogLevel.Info, "Loading... This version of this software is modified by github.com/legop3");
+log(LogLevel.Info, "Loading... This version of this software is modified by github.com/legop3 :3");
 
 const filePath = path.join(path.dirname(fileURLToPath(import.meta.url)), "bot.js");
 const manager = new ShardingManager(filePath, { token: process.env.TOKEN });
