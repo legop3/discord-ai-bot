@@ -271,14 +271,16 @@ client.on(Events.MessageCreate, async message => {
 		if (!message.author.id) return;
 		if (message.author.id == client.user.id) return;
 
-		if (!botwar) {
-		// modification, checks for botwar mode. user messages are disabled while in botwar mode.
-			if (message.author.bot) return;
-		}
 
+		// modification, checks for botwar mode. user messages are disabled while in botwar mode.
 		if (botwar) {
 			if (!message.author.bot) return;
 		}
+		if (!botwar) {
+			if (message.author.bot) return;
+		}
+
+
 
 		const botRole = message.guild?.members?.me?.roles?.botRole;
 		const myMention = new RegExp(`<@((!?${client.user.id}${botRole ? `)|(&${botRole.id}` : ""}))>`, "g"); // RegExp to match a mention for the bot
