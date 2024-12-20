@@ -274,6 +274,8 @@ client.on(Events.MessageCreate, async message => {
 		if (!botwar) {
 		// modification, checks for botwar mode
 			if (message.author.bot) return;
+		} else if (botwar) {
+			if (!message.authot.bot) return;
 		}
 
 		const botRole = message.guild?.members?.me?.roles?.botRole;
