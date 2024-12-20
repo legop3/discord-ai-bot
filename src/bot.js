@@ -359,6 +359,7 @@ client.on(Events.MessageCreate, async message => {
 					// modification, toggles the botwar mode
 					botwar = !botwar
 					await message.reply({content: `Botwar mode is now ${botwar}`})
+					break;
 				case "ping":
 					// get ms difference
 					try {
