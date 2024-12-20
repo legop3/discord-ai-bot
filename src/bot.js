@@ -274,7 +274,7 @@ client.on(Events.MessageCreate, async message => {
 
 		// modification, checks for botwar mode. user messages are disabled while in botwar mode.
 		if (botwar) {
-			if (!message.author.bot) return;
+			if (message.author.user) return;
 		}
 		if (!botwar) {
 			if (message.author.bot) return;
