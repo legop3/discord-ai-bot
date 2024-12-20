@@ -276,9 +276,9 @@ client.on(Events.MessageCreate, async message => {
 		if (botwar) {
 			if (!message.author.bot) return;
 		}
-		else if (!botwar) {
-			if (message.author.bot) return;
-		}
+		// else if (!botwar) {
+		// 	if (message.author.bot) return;
+		// }
 
 
 
